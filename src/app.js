@@ -2,13 +2,14 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const morgan = require("morgan");
+const config = require('./configs/config.js')
 // const { Classes, User } = require("./db.js")
 const server = express();
-
 const routes = require("./routes/index.js");
 
 server.name = "API";
 
+server.set('key', config.key)
 server.use(bodyParser.urlencoded({ extended: true, limit: "50mb" }));
 server.use(bodyParser.json({ limit: "50mb" }));
 server.use(morgan("dev")); // to console.log routes in node console
@@ -21,7 +22,6 @@ server.use((req, res, next) => {
 });
 
 server.use("/", routes);
-
 
 
 // Error catching endware.
